@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+//TASK 1
+Route::middleware('token.validator')->group(function(){
+//Number 1
+Route::apiResource('/products', ProductController::class);
+//Number 2
+Route::post('products/upload/local', [ProductController::class, 'uploadImageLocal']);
+Route::post('products/upload/public', [ProductController::class, 'uploadImagePublic']);
 });
